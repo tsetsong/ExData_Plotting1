@@ -8,14 +8,15 @@ colnames(tbl)<-names
 dateTime$Time <- tbl$Time
 colnames(dateTime)<-c("Date", "Time")
 
-# Opening graphic device
-png(file = "./figure/Plot4.png",height=480,width=480)
 
 # Create a new column in the dateTime dataframe and combine the contents of the first 
 # two columns in the new column, separated by a comma
 dateTime$DateTime <- sapply(dateTime, function(x) paste(dateTime$Date,dateTime$Time,sep=","))[,1] 
 # create yet another column in dateTime and convert dateTime$DateTime into POSIXlt and store it here.
 dateTime$dt<-strptime(dateTime$DateTime, "%d/%m/%Y,%H:%M:%S")
+
+# Opening graphic device
+png(file = "./figure/Plot4.png",height=480,width=480)
 
 # Create two columns and two rows in the plot window
 par(mfrow=c(2,2))
@@ -30,18 +31,10 @@ plot(dateTime$dt,tbl$Voltage,type="l",ylab ="Voltage",xlab="datetime")
 plot(dateTime$dt,tbl$Sub_metering_1,type="line",xlab="",ylab="Energy sub metering")
 lines(dateTime$dt,tbl$Sub_metering_2,col="red")
 lines(dateTime$dt,tbl$Sub_metering_3,col="blue")
+legend("topright",c("Sub_metering_1","Sub_metering_2","Sub_metering_3"),lty=c(1,1,1),lwd=c(2.5,2.5,2.5),col=c("black","red","blue"),bty="n")
 
 # Output fourth plot
 plot(dateTime$dt,tbl$Global_reactive_power,type="l",ylab ="Global_reactive_power",xlab="datetime")
 
-# copy the plot to png file
-
+# Off graphics device
 dev.off()
-
-#tbl$Date<-as.Date(tbl$Date, "%d/%m/%Y")
-#tbl$Time <-chron(times=tbl$Time)
-
-
-#with(tbl,hist(Global_active_power,col="red",xlab="Global Active Power(kilowatts)",main="Global Active Power"))
-#dev.copy(png,file="./figure/Plot1.png")
-#dev.off()

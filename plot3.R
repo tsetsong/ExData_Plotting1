@@ -24,6 +24,6 @@ plot(dateTime$dt,tbl$Sub_metering_1,type="line",xlab="",ylab="Energy sub meterin
 # add the submetering 2 and sub metering 3 data
 lines(dateTime$dt,tbl$Sub_metering_2,col="red")
 lines(dateTime$dt,tbl$Sub_metering_3,col="blue")
-
+legend("topright",c("Sub_metering_1","Sub_metering_2","Sub_metering_3"),lty=c(1,1,1),lwd=c(2.5,2.5,2.5),col=c("black","red","blue"))
 # Off graphic device
 dev.off()
